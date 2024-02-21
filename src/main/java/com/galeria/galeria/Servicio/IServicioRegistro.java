@@ -2,7 +2,9 @@ package com.galeria.galeria.Servicio;
 
 import com.galeria.galeria.Modelo.Galerista;
 
-public interface IGaleristaService {
+import java.util.List;
+
+public interface IServicioRegistro {
 
     public void guardarGalerista(Galerista galerista);
 }

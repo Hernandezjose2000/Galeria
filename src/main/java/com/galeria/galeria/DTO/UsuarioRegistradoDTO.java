@@ -1,37 +1,22 @@
-package com.galeria.galeria.Modelo;
+package com.galeria.galeria.DTO;
 
-import jakarta.persistence.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-@Entity
-public class Galerista {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idGalerista;
+public class UsuarioRegistradoDTO {
 
     private String nombre;
-
     private String apellido;
-
     private String email;
-
     private String username;
     private String password;
 
-    public Galerista(String nombre, String apellido, String email, String username, String password){
+    public UsuarioRegistradoDTO(String nombre, String apellido, String email, String username, String password){
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.username = username;
-        this.password = password;
-    }
-
-    public Integer getIdGalerista() {
-        return idGalerista;
-    }
-
-    public void setIdGalerista(Integer idGalerista) {
-        this.idGalerista = idGalerista;
+        this.password = this.applyHash(password);
     }
 
     public String getNombre() {
@@ -72,5 +57,25 @@ public class Galerista {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    private String applyHash(String input) {
+        try {
+            // Create MessageDigest instance for SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            // Apply hash function
+            byte[] hashedBytes = md.digest(input.getBytes());
+
+            // Convert byte array to hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Handle NoSuchAlgorithmException
+            e.printStackTrace();
+            return null;
+        }
     }
 }

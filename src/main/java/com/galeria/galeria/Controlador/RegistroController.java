@@ -1,22 +1,22 @@
 package com.galeria.galeria.Controlador;
 
+import com.galeria.galeria.DTO.UsuarioRegistradoDTO;
 import com.galeria.galeria.Modelo.Galerista;
-import com.galeria.galeria.Servicio.IGaleristaService;
+import com.galeria.galeria.Servicio.IServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GaleristaController {
+public class RegistroController {
 
     @Autowired
-    private IGaleristaService servicioGalerista;
+    private IServicioRegistro servicioGalerista;
 
     @PostMapping("/crear/")
-    public String crearGalerista(@RequestBody Galerista nuevoGalerista){
-
+    public String crearGalerista(@RequestBody UsuarioRegistradoDTO usuarioNuevoDTO){
+        Galerista nuevoGalerista = new Galerista(usuarioNuevoDTO.getNombre(), usuarioNuevoDTO.getApellido(), usuarioNuevoDTO.getEmail(), usuarioNuevoDTO.getUsername(), usuarioNuevoDTO.getPassword());
         servicioGalerista.guardarGalerista(nuevoGalerista);
         return "CREADO CON EXITO";
     }
