@@ -18,6 +18,10 @@ public class Galerista {
     private String username;
     private String password;
 
+    public Galerista(){
+
+    }
+
     public Galerista(String nombre, String apellido, String email, String username, String password){
         this.nombre = nombre;
         this.apellido = apellido;

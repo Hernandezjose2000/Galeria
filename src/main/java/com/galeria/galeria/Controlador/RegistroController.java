@@ -1,12 +1,11 @@
 package com.galeria.galeria.Controlador;
 
+import com.galeria.galeria.DTO.LoggingGaleristaDTO;
 import com.galeria.galeria.DTO.UsuarioRegistradoDTO;
 import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Servicio.IServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RegistroController {
@@ -20,4 +19,21 @@ public class RegistroController {
         servicioGalerista.guardarGalerista(nuevoGalerista);
         return true;
     }
+
+    /*@GetMapping("/autenticarUsuario/{username}")
+    public String autenticarUsuario(@PathVariable String username){  //dejo esta forma solo para poder intentar hackear el username
+        return servicioGalerista.loguearGalerista(username).getApellido();
+    }*/
+
+    @PostMapping("autenticarGalerista")
+    public String autenticarGalerista(@RequestBody LoggingGaleristaDTO credencialesGalerista){
+
+        Galerista galeristaLogueado = servicioGalerista.loguearGalerista(credencialesGalerista.getUsername(), credencialesGalerista.getPassword());
+        if (galeristaLogueado != null){
+            return "logeado";
+        }
+        return "no loegueado";
+
+    }
+
 }

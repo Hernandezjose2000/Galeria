@@ -7,4 +7,7 @@ import java.util.List;
 public interface IServicioRegistro {
 
     public void guardarGalerista(Galerista galerista);
+
+    public Galerista loguearGalerista(String username, String Password);
+
 }
