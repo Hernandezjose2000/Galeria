@@ -14,10 +14,10 @@ public class RegistroController {
     @Autowired
     private IServicioRegistro servicioGalerista;
 
-    @PostMapping("/crear/")
-    public String crearGalerista(@RequestBody UsuarioRegistradoDTO usuarioNuevoDTO){
+    @PostMapping("/crearGalerista/")
+    public boolean crearGalerista(@RequestBody UsuarioRegistradoDTO usuarioNuevoDTO){
         Galerista nuevoGalerista = new Galerista(usuarioNuevoDTO.getNombre(), usuarioNuevoDTO.getApellido(), usuarioNuevoDTO.getEmail(), usuarioNuevoDTO.getUsername(), usuarioNuevoDTO.getPassword());
         servicioGalerista.guardarGalerista(nuevoGalerista);
-        return "CREADO CON EXITO";
+        return true;
     }
 }
