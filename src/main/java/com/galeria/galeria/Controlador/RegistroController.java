@@ -25,15 +25,5 @@ public class RegistroController {
         return servicioGalerista.loguearGalerista(username).getApellido();
     }*/
 
-    @PostMapping("autenticarGalerista")
-    public String autenticarGalerista(@RequestBody LoggingGaleristaDTO credencialesGalerista){
-
-        Galerista galeristaLogueado = servicioGalerista.loguearGalerista(credencialesGalerista.getUsername(), credencialesGalerista.getPassword());
-        if (galeristaLogueado != null){
-            return "logeado";
-        }
-        return "no loegueado";
-
-    }
 
 }
