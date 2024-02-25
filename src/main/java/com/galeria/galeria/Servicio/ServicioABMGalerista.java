@@ -21,9 +21,10 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
     private ABMGalerista abmGalerista;
 
     @Override
-    public Galerista registrarGalerista(GaleristaNuevoDTO usuarioNuevoDTO) {
-        Galerista nuevoGalerista = new Galerista(usuarioNuevoDTO.getNombre(), usuarioNuevoDTO.getApellido(),
-                                        usuarioNuevoDTO.getEmail(), usuarioNuevoDTO.getUsername(), usuarioNuevoDTO.getPassword());
+    public Galerista registrarGalerista(GaleristaNuevoDTO galeristaNuevo) {
+        String passwordEncriptada = ServicioEncriptacion.encriptar(galeristaNuevo.getPassword());
+        Galerista nuevoGalerista = new Galerista(galeristaNuevo.getNombre(), galeristaNuevo.getApellido(),
+                galeristaNuevo.getEmail(), galeristaNuevo.getUsername(), passwordEncriptada);
         abmGalerista.save(nuevoGalerista);
         return nuevoGalerista;
     }
@@ -39,7 +40,7 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
     @Override
     public boolean cambiarPassword(NuevaPasswordGaleristaDTO datosGalerista) {
         Galerista galerista = abmGalerista.findGaleristaByUsername(datosGalerista.getUsername());
-        String passwordEncriptada = applyHash(datosGalerista.getNuevaPassword());
+        String passwordEncriptada = ServicioEncriptacion.encriptar(datosGalerista.getNuevaPassword());
         galerista.setPassword(passwordEncriptada);
         abmGalerista.save(galerista);
         return true;
@@ -51,27 +52,6 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
         return true;
     }
 
-
-    // esto debe ir en un servicio de encriptacion
-    private String applyHash(String input) {
-        try {
-            // Create MessageDigest instance for SHA-256
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            // Apply hash function
-            byte[] hashedBytes = md.digest(input.getBytes());
-
-            // Convert byte array to hexadecimal string
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // Handle NoSuchAlgorithmException
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 
 }

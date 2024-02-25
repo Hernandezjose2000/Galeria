@@ -21,30 +21,11 @@ public class ServicioLogging implements IServicioLogging {
     }
     private Galerista validarPasswords(String passwordRecibida, Galerista galeristaSolicitado){
 
-        String passwordRecibidaHasheada = aplicarHash(passwordRecibida);
+        String passwordRecibidaHasheada = ServicioEncriptacion.encriptar(passwordRecibida);
         if(Objects.equals(passwordRecibidaHasheada, galeristaSolicitado.getPassword())){
             return galeristaSolicitado;
         }
         return null;
     }
 
-    private String aplicarHash(String input) {
-        try {
-            // Create MessageDigest instance for SHA-256
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            // Apply hash function
-            byte[] hashedBytes = md.digest(input.getBytes());
-
-            // Convert byte array to hexadecimal string
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // Handle NoSuchAlgorithmException
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
