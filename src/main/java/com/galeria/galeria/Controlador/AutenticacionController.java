@@ -1,6 +1,6 @@
 package com.galeria.galeria.Controlador;
 
-import com.galeria.galeria.DTO.LoggingGaleristaDTO;
+import com.galeria.galeria.DTO.DatosAutenticacionDTO;
 import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Servicio.ServicioLogging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class AutenticacionController {
     private ServicioLogging autenticarGalerista;
 
     @PostMapping("/autenticarGalerista")
-    public Galerista autenticarGalerista(@RequestBody LoggingGaleristaDTO credencialesGalerista){
+    public Galerista autenticarGalerista(@RequestBody DatosAutenticacionDTO credencialesGalerista){
 
         Galerista galeristaLogueado = autenticarGalerista.autenticarGalerista(credencialesGalerista.getUsername(), credencialesGalerista.getPassword());
         return galeristaLogueado;

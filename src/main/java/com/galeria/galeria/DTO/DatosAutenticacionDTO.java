@@ -1,13 +1,13 @@
 package com.galeria.galeria.DTO;
 
-public class LoggingGaleristaDTO {
+public class DatosAutenticacionDTO {
 
 
     private String username;
 
     private String password;
 
-    public LoggingGaleristaDTO(String username, String password){
+    public DatosAutenticacionDTO(String username, String password){
         this.username = username;
         this.password = password;
     }

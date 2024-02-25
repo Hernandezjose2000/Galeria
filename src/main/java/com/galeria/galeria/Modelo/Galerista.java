@@ -8,13 +8,9 @@ public class Galerista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idGalerista;
-
     private String nombre;
-
     private String apellido;
-
     private String email;
-
     private String username;
     private String password;
 

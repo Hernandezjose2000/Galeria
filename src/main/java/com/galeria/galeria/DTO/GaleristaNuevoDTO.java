@@ -3,7 +3,7 @@ package com.galeria.galeria.DTO;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class UsuarioRegistradoDTO {
+public class GaleristaNuevoDTO {
 
     private String nombre;
     private String apellido;
@@ -11,7 +11,7 @@ public class UsuarioRegistradoDTO {
     private String username;
     private String password;
 
-    public UsuarioRegistradoDTO(String nombre, String apellido, String email, String username, String password){
+    public GaleristaNuevoDTO(String nombre, String apellido, String email, String username, String password){
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
