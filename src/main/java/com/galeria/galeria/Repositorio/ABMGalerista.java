@@ -12,5 +12,7 @@ public interface ABMGalerista extends JpaRepository<Galerista, Integer> {
 
     public Galerista findGaleristaByUsername(String username);
 
+    public void deleteGaleristaByUsername(String username);
+
 
 }

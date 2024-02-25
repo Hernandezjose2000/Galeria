@@ -1,10 +1,12 @@
 package com.galeria.galeria.Servicio;
 
+import com.galeria.galeria.DTO.GaleristaEliminadoDTO;
 import com.galeria.galeria.DTO.GaleristaNuevoDTO;
 import com.galeria.galeria.DTO.NuevaPasswordGaleristaDTO;
 import com.galeria.galeria.DTO.NuevoUsernameGaleristaDTO;
 import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Repositorio.ABMGalerista;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
+@Transactional //ver para que se usa esta notacion
 public class ServicioABMGalerista implements IServicioABMGalerista {
-
 
     @Autowired
     private ABMGalerista abmGalerista;
-
 
     @Override
     public Galerista registrarGalerista(GaleristaNuevoDTO usuarioNuevoDTO) {
@@ -33,7 +34,6 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
         galerista.setUsername(datosNuevosGalerista.getUsernameNuevo());
         abmGalerista.save(galerista);
         return true;
-
     }
 
     @Override
@@ -45,7 +45,14 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
         return true;
     }
 
+    @Override
+    public boolean eliminarGalerista(GaleristaEliminadoDTO galeristaEliminado) {
+        abmGalerista.deleteGaleristaByUsername(galeristaEliminado.getUsername());
+        return true;
+    }
 
+
+    // esto debe ir en un servicio de encriptacion
     private String applyHash(String input) {
         try {
             // Create MessageDigest instance for SHA-256
