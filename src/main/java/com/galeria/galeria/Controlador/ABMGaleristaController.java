@@ -1,6 +1,7 @@
 package com.galeria.galeria.Controlador;
 
 import com.galeria.galeria.DTO.GaleristaNuevoDTO;
+import com.galeria.galeria.DTO.NuevaPasswordGaleristaDTO;
 import com.galeria.galeria.DTO.NuevoUsernameGaleristaDTO;
 import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Servicio.IServicioABMGalerista;
@@ -19,8 +20,13 @@ public class ABMGaleristaController {
     }
 
     @PostMapping("/cambiarUsernameGalerista")
-    public boolean obtenerGalerista(@RequestBody NuevoUsernameGaleristaDTO datosNuevosGalerista){
+    public boolean cambiarUsernameGalerista(@RequestBody NuevoUsernameGaleristaDTO datosNuevosGalerista){
         return servicioAbmGalerista.cambiarUsernameGalerista(datosNuevosGalerista);
+    }
+
+    @PostMapping("/cambiarPasswordGalerista")
+    public boolean cambiarPasswordGalerista(@RequestBody NuevaPasswordGaleristaDTO datosGalerista){
+        return servicioAbmGalerista.cambiarPassword(datosGalerista);
     }
 
 }

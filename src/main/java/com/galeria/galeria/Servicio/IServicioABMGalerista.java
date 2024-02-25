@@ -1,6 +1,7 @@
 package com.galeria.galeria.Servicio;
 
 import com.galeria.galeria.DTO.GaleristaNuevoDTO;
+import com.galeria.galeria.DTO.NuevaPasswordGaleristaDTO;
 import com.galeria.galeria.DTO.NuevoUsernameGaleristaDTO;
 import com.galeria.galeria.Modelo.Galerista;
 
@@ -12,7 +13,7 @@ public interface IServicioABMGalerista {
 
     //public boolean cambiarUsername(NuevoUsernameGaleristaDTO nuevosDatosGalerista);
 
-   // public boolean cambiarPassword(String passwordActual, String passwordNueva);
+   public boolean cambiarPassword(NuevaPasswordGaleristaDTO datosGaleristta);
 
     //public boolean eliminarGalerista(String username);
 
