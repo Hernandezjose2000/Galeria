@@ -24,14 +24,14 @@ public class ABMGaleristaController {
         return servicioAbmGalerista.registrarGalerista(galeristaNuevoDTO);
     }
 
-    @PutMapping("/cambiarUsernameGalerista")
+    @PatchMapping("/cambiarUsernameGalerista")
     @ResponseStatus(HttpStatus.OK)
     public boolean cambiarUsernameGalerista(@RequestBody NuevoUsernameGaleristaDTO datosNuevosGalerista){
         return servicioAbmGalerista.cambiarUsernameGalerista(datosNuevosGalerista);
 
     }
 
-    @PutMapping("/cambiarPasswordGalerista")
+    @PatchMapping("/cambiarPasswordGalerista")
     @ResponseStatus(HttpStatus.OK)
     public boolean cambiarPasswordGalerista(@RequestBody NuevaPasswordGaleristaDTO datosGalerista){
         return servicioAbmGalerista.cambiarPassword(datosGalerista);
