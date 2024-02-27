@@ -8,10 +8,17 @@ import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Repositorio.ABMGalerista;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 @Service
 @Transactional //ver para que se usa esta notacion
@@ -21,13 +28,15 @@ public class ServicioABMGalerista implements IServicioABMGalerista {
     private ABMGalerista abmGalerista;
 
     @Override
-    public Galerista registrarGalerista(GaleristaNuevoDTO galeristaNuevo) {
+    public Galerista registrarGalerista(GaleristaNuevoDTO galeristaNuevo) throws DataIntegrityViolationException {
         String passwordEncriptada = ServicioEncriptacion.encriptar(galeristaNuevo.getPassword());
         Galerista nuevoGalerista = new Galerista(galeristaNuevo.getNombre(), galeristaNuevo.getApellido(),
                 galeristaNuevo.getEmail(), galeristaNuevo.getUsername(), passwordEncriptada);
+
         abmGalerista.save(nuevoGalerista);
         return nuevoGalerista;
     }
+
 
     @Override
     public boolean cambiarUsernameGalerista(NuevoUsernameGaleristaDTO datosNuevosGalerista) {

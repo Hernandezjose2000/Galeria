@@ -7,6 +7,7 @@ import com.galeria.galeria.DTO.NuevoUsernameGaleristaDTO;
 import com.galeria.galeria.Modelo.Galerista;
 import com.galeria.galeria.Servicio.IServicioABMGalerista;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +21,26 @@ public class ABMGaleristaController {
     @PostMapping("/crearGalerista")
     @ResponseStatus(HttpStatus.CREATED)
     public Galerista crearGalerista(@RequestBody GaleristaNuevoDTO galeristaNuevoDTO){
-
         return servicioAbmGalerista.registrarGalerista(galeristaNuevoDTO);
     }
 
     @PutMapping("/cambiarUsernameGalerista")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> cambiarUsernameGalerista(@RequestBody NuevoUsernameGaleristaDTO datosNuevosGalerista){
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    public boolean cambiarUsernameGalerista(@RequestBody NuevoUsernameGaleristaDTO datosNuevosGalerista){
+        return servicioAbmGalerista.cambiarUsernameGalerista(datosNuevosGalerista);
+
     }
 
     @PutMapping("/cambiarPasswordGalerista")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> cambiarPasswordGalerista(@RequestBody NuevaPasswordGaleristaDTO datosGalerista){
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    public boolean cambiarPasswordGalerista(@RequestBody NuevaPasswordGaleristaDTO datosGalerista){
+        return servicioAbmGalerista.cambiarPassword(datosGalerista);
     }
 
     @DeleteMapping("/eliminarGalerista")
-    public ResponseEntity<Boolean> eliminarGalerista(@RequestBody GaleristaEliminadoDTO galeristaeEliminado){
-        System.out.println("enviado");
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public boolean eliminarGalerista(@RequestBody GaleristaEliminadoDTO galeristaeEliminado){
+        return servicioAbmGalerista.eliminarGalerista(galeristaeEliminado);
     }
 
 }
