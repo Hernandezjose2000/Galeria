@@ -1,8 +1,14 @@
 package com.galeria.galeria.Modelo;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 @Entity
+@Table(
+        indexes = {@Index(name = "unicidadUsername", columnList = "username",unique = true),
+        @Index(name="unicidadEmail", columnList = "email", unique = true)}
+)
 public class Galerista {
 
     @Id
@@ -10,10 +16,14 @@ public class Galerista {
     private Integer idGalerista;
     private String nombre;
     private String apellido;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
-
+    @OneToMany(mappedBy = "galeristaCreador")
+    private ArrayList<Galeria> galeriasCreadas;
     public Galerista(){
 
     }
